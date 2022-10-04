@@ -2,11 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family:cursive;
+  overflow: hidden;
 }
 
 body {
   background-color: #455073;
-  font-family: sans-serif;
 }
 
 .container {
@@ -42,7 +43,7 @@ body {
   text-align: center;
   line-height: 100px;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 100px;
   cursor: pointer;
 }
 
@@ -64,6 +65,8 @@ body {
 
 #reset {
   display: block;
+  font-size: 20px;
+  border-radius: 6px;
   border: none;
   margin: 20px auto 0 auto;
   width: 200px;
@@ -72,6 +75,10 @@ body {
   background-color: #c0904d;
   cursor: pointer;
   text-transform: capitalize;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
 }
 
 

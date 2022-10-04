@@ -1,41 +1,58 @@
 window.onload = () => {
 
+  "use strict";
+
+  let boxCounter = 0;
+
+  let gameState = true;
+
+  let currentPlayer = "X";
+  
   const boxes = Array.from(document.getElementsByClassName("box"));
 
   const resetButton = document.getElementById("reset");
-
-  let state = 1;
 
   const winner = document.getElementById("winner");
 
   const turn = document.getElementById("turn");
 
-  let currentPlayer = "X";
-
-  let boxesValue = [];
-
-
-  turn.textContent = `turn for ${currentPlayer}`;
-
   boxes.forEach((box) => {
 
-    box.addEventListener("click", (e) => {
+    box.addEventListener("click", () => {
 
-      if (box.textContent === "" && state) {
+      if (box.textContent === "" && gameState) {
 
         box.textContent = currentPlayer;
 
         box.style.color = currentPlayer === "X" ? "#37a987" : "#f4af1b";
 
-        checkForWinner();
+        if (checkForWinner()) {
 
-        swapTurns();
+        winner.textContent = `Winner is ${currentPlayer}`;
 
+        winner.style.visibility = "visible";
+
+        gameState = false;
+
+        }
+        else if (boxCounter === 9 && !checkForWinner()) {
+
+          winner.textContent = `No Winner`;
+
+          winner.style.visibility = "visible";
+
+        }
+
+        else swapTurns();
       }
     });
   });
 
   resetButton.onclick = () => {
+
+    gameState = true;
+
+    boxCounter = 0;
 
     boxes.forEach((box) => {
 
@@ -47,14 +64,13 @@ window.onload = () => {
 
       winner.style.visibility = "hidden";
 
-      state = 1;
-
     });
 
-    boxesValue = [];
   };
 
   const checkForWinner = () => {
+
+    boxCounter++;
 
     const winingCombinations = [
       [0, 1, 2],
@@ -67,7 +83,7 @@ window.onload = () => {
       [2, 4, 6],
     ];
 
-    for (i = 0; i < winingCombinations.length; i++) {
+    for (let i = 0; i < winingCombinations.length; i++) {
 
       let winingCombination = winingCombinations[i];
 
@@ -78,30 +94,11 @@ window.onload = () => {
       const c = boxes[winingCombination[2]].textContent;
 
 
-      if (a === "" || b === "" || c === "") {
-
-        continue;
-      }
-
-      else if (boxesValue.length === 9 && a !== b && b !== c) {
-
-        winner.textContent = 'No Winner';
-
-        winner.style.visibility = 'visible';
-
-      }
-
-      else if (a === b && b === c) {
-
-        winner.textContent = `Winner is ${currentPlayer}`;
-
-        winner.style.visibility = "visible";
-
-        state = 0;
-      }
-
-
+      if (a === b && b === c && a !== "") return true;
     }
+    
+    return false;
+    
   };
 
   const swapTurns = () => {
@@ -110,4 +107,5 @@ window.onload = () => {
 
     turn.textContent = `turn for ${currentPlayer}`;
   };
+
 };
