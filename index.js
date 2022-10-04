@@ -54,17 +54,13 @@ window.onload = () => {
 
     boxCounter = 0;
 
-    boxes.forEach((box) => {
+    currentPlayer = "X";
 
-      box.textContent = "";
+    turn.textContent = `turn for ${currentPlayer}`;
 
-      currentPlayer = "X";
+    winner.style.visibility = "hidden";
 
-      turn.textContent = `turn for ${currentPlayer}`;
-
-      winner.style.visibility = "hidden";
-
-    });
+    boxes.forEach(box =>  box.textContent = "");
 
   };
 
